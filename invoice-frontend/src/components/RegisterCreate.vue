@@ -13,6 +13,12 @@
 
               <div class="card-body">
                 <form @submit="Adduser">
+                  <p class ="text-danger" v-if="errors.length">
+    <b>Please correct the following error(s):</b>
+    <ul>
+      <li v-for="error in errors" :key="error">{{ error }}</li>
+    </ul>
+  </p>
                   <div class="row">
                     <div class="form-group col-6">
                       <label for="first_name">First Name</label>
@@ -140,6 +146,7 @@ export default {
   name: "RegisterCreate",
   data() {
     return {
+      errors: [],
       first_name: "",
       last_name: "",
       email: "",
@@ -154,47 +161,49 @@ export default {
   },
   methods: {
     Adduser(e) {
-      e.preventDefault();
+      
+      this.errors = [];
       if (!this.first_name) {
-        console.log("enter your first name");
-        return;
+       this.errors.push("enter your first name");
+        
       }
       if (!this.last_name) {
-        console.log("enter your last name");
-        return;
+        this.errors.push("enter your last name");
+        
       }
       if (!this.email) {
-        console.log("enter your email");
-        return;
+       this.errors.push("enter your email");
+        
       }
       if (!this.postalcode) {
-        console.log("enter your postalcode");
-        return;
+       this.errors.push("enter your postalcode");
+        
       }
       if (!this.City) {
-        console.log("enter your City");
-        return;
+        this.errors.push("enter your City");
+        
       }
       if (!this.password) {
-        console.log("enter your password");
-        return;
+       this.errors.push("enter your password");
+       
       }
       if (!this.password2) {
-        console.log("enter your password2");
-        return;
+      this.errors.push("enter your password2");
+       
       }
       if (!this.Country) {
-        console.log("enter your Country");
-        return;
+        this.errors.push("enter your Country");
+       
       }
       if (!this.agree) {
-        console.log("you should agree with terms and services");
-        return;
+        this.errors.push("you should agree with terms and services");
+        
       }
       if (!this.Province) {
-        console.log("enter Province");
-        return;
+        this.errors.push("enter Province");
+       
       }
+      e.preventDefault();
       const Newinformation = {
         first_name: this.first_name,
         last_name: this.last_name,

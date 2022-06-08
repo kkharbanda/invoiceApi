@@ -1,0 +1,19 @@
+{
+  "name": "invoiceapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kkharbanda/invoiceApi.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kkharbanda/invoiceApi/issues"
+  },
+  "homepage": "https://github.com/kkharbanda/invoiceApi#readme"
+}

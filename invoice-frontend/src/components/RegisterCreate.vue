@@ -12,13 +12,7 @@
               </div>
 
               <div class="card-body">
-                <form @submit="Adduser">
-                  <p class ="text-danger" v-if="errors.length">
-    <b>Please correct the following error(s):</b>
-    <ul>
-      <li v-for="error in errors" :key="error">{{ error }}</li>
-    </ul>
-  </p>
+                <form @submit.prevent="Adduser" class="needs-validation" novalidate>
                   <div class="row">
                     <div class="form-group col-6">
                       <label for="first_name">First Name</label>
@@ -28,10 +22,17 @@
                         class="form-control"
                         name="first_name"
                         v-model="first_name"
-                        autofocus
+                        :class="{ error: v$.first_name.$errors.length }"
                       />
+                      <div
+                        class="input-errors text-small text-danger"
+                        v-for="error of v$.first_name.$errors"
+                        :key="error.$uid"
+                      >
+                        <div class="error-msg">Please enter first Name</div>
+                      </div>
                     </div>
-                    <div class="form-group col-6">
+                    <div class="form-group col-6" :class="{ error: v$.last_name.$errors.length }">
                       <label for="last_name">Last Name</label>
                       <input
                         id="last_name"
@@ -40,17 +41,37 @@
                         class="form-control"
                         name="last_name"
                       />
+                      <div
+                        class="input-errors text-small text-danger"
+                        v-for="error of v$.last_name.$errors"
+                        :key="error.$uid"
+                      >
+                        <div class="error-msg">Please enter Last Name</div>
+                      </div>
                     </div>
                   </div>
 
-                  <div class="form-group">
+                  <div class="form-group" :class="{ error: v$.email.$errors.length }">
                     <label for="email">Email</label>
-                    <input id="email" v-model="email" type="email" class="form-control" name="email" />
-                    <div class="invalid-feedback"></div>
+                    <input
+                      id="email"
+                      v-model="email"
+                      type="email"
+                      class="form-control"
+                      name="email"
+                      required
+                    />
+                    <div
+                      class="input-errors text-small text-danger"
+                      v-for="error of v$.email.$errors"
+                      :key="error.$uid"
+                    >
+                      <div class="error-msg">Please enter Correct email</div>
+                    </div>
                   </div>
 
                   <div class="row">
-                    <div class="form-group col-6">
+                    <div class="form-group col-6" :class="{ error: v$.password.$errors.length }">
                       <label for="password" class="d-block">Password</label>
                       <input
                         id="password"
@@ -60,12 +81,15 @@
                         data-indicator="pwindicator"
                         name="password"
                       />
-                      <div id="pwindicator" class="pwindicator">
-                        <div class="bar"></div>
-                        <div class="label"></div>
+                      <div
+                        class="input-errors text-small text-danger"
+                        v-for="error of v$.password.$errors"
+                        :key="error.$uid"
+                      >
+                        <div class="error-msg">Please enter Password</div>
                       </div>
                     </div>
-                    <div class="form-group col-6">
+                    <div class="form-group col-6" :class="{ error: v$.password2.$errors.length }">
                       <label for="password2" class="d-block">Password Confirmation</label>
                       <input
                         id="password2"
@@ -74,12 +98,20 @@
                         class="form-control"
                         name="password-confirm"
                       />
+                      <div
+                        class="input-errors text-small text-danger"
+                        v-for="error of v$.password2.$errors"
+                        :key="error.$uid"
+                      >
+                        <div class="error-msg">Confirm password and password should be same</div>
+                      </div>
                     </div>
                   </div>
 
                   <div class="form-divider">Your Home</div>
+                  
                   <div class="row">
-                    <div class="form-group col-6">
+                    <div class="form-group col-6" :class="{ error: v$.Country.$errors.length }">
                       <label>Country</label>
                       <select v-model="Country" class="form-control selectric">
                         <option>Indonesia</option>
@@ -88,28 +120,59 @@
                         <option>Malaysia</option>
                         <option>Thailand</option>
                       </select>
+                      <div
+                        class="input-errors text-small text-danger"
+                        v-for="error of v$.Country.$errors"
+                        :key="error.$uid"
+                      >
+                        <div class="error-msg">Choose Country</div>
+                      </div>
                     </div>
-                    <div class="form-group col-6">
+                    <div class="form-group col-6" :class="{ error: v$.Province.$errors.length }">
                       <label>Province</label>
                       <select v-model="Province" class="form-control selectric">
                         <option>West Java</option>
                         <option>East Java</option>
                       </select>
+                      <div
+                        class="input-errors text-small text-danger"
+                        v-for="error of v$.Province.$errors"
+                        :key="error.$uid"
+                      >
+                        <div class="error-msg">Choose Province</div>
+                      </div>
                     </div>
                   </div>
                   <div class="row">
-                    <div class="form-group col-6">
+                    <div class="form-group col-6" :class="{ error: v$.City.$errors.length }">
                       <label>City</label>
                       <input v-model="City" type="text" class="form-control" />
+                      <div
+                        class="input-errors text-small text-danger"
+                        v-for="error of v$.City.$errors"
+                        :key="error.$uid"
+                      >
+                        <div class="error-msg">Choose Province</div>
+                      </div>
                     </div>
-                    <div class="form-group col-6">
+                    <div class="form-group col-6" :class="{ error: v$.postalcode.$errors.length }">
                       <label>Postal Code</label>
                       <input v-model="postalcode" type="text" class="form-control" />
+                      <div
+                        class="input-errors text-small text-danger"
+                        v-for="error of v$.postalcode.$errors"
+                        :key="error.$uid"
+                      >
+                        <div class="error-msg">Choose postalcode</div>
+                      </div>
                     </div>
                   </div>
 
                   <div class="form-group">
-                    <div class="custom-control custom-checkbox">
+                    <div
+                      class="custom-control custom-checkbox"
+                      :class="{ error: v$.agree.$errors.length }"
+                    >
                       <input
                         type="checkbox"
                         v-model="agree"
@@ -117,6 +180,13 @@
                         class="custom-control-input"
                         id="agree"
                       />
+                      <div
+                        class="input-errors text-small text-danger"
+                        v-for="error of v$.agree.$errors"
+                        :key="error.$uid"
+                      >
+                        <div class="error-msg">Accpet Terms and Services</div>
+                      </div>
                       <label
                         class="custom-control-label"
                         for="agree"
@@ -141,12 +211,19 @@
 <script>
 /* eslint-disable */
 /* eslint-disable no-mixed-spaces-and-tabs */
+import useVuelidate from "@vuelidate/core";
+import { required, email, sameAs,minLength } from "@vuelidate/validators";
 
 export default {
+  setup() {
+    return { v$: useVuelidate() };
+  },
   name: "RegisterCreate",
   data() {
     return {
-      errors: [],
+      msg: [],
+      country: '',
+            region: '',
       first_name: "",
       last_name: "",
       email: "",
@@ -159,51 +236,29 @@ export default {
       Province: ""
     };
   },
+  validations() {
+    return {
+      first_name: { required },
+      last_name: { required },
+      email: { required, email },
+      postalcode: { required },
+      City: { required },
+      password: { required,
+      minLength: minLength(6) },
+      password2: { required,
+      minLength: minLength(6) },
+      Country: { required },
+      agree: { required },
+      Province: { required }
+    };
+  },
   methods: {
-    Adduser(e) {
-      
-      this.errors = [];
-      if (!this.first_name) {
-       this.errors.push("enter your first name");
-        
+    async Adduser() {
+      const result = await this.v$.$validate();
+      if (!result) {
+        // notify user form is invalid
+        return;
       }
-      if (!this.last_name) {
-        this.errors.push("enter your last name");
-        
-      }
-      if (!this.email) {
-       this.errors.push("enter your email");
-        
-      }
-      if (!this.postalcode) {
-       this.errors.push("enter your postalcode");
-        
-      }
-      if (!this.City) {
-        this.errors.push("enter your City");
-        
-      }
-      if (!this.password) {
-       this.errors.push("enter your password");
-       
-      }
-      if (!this.password2) {
-      this.errors.push("enter your password2");
-       
-      }
-      if (!this.Country) {
-        this.errors.push("enter your Country");
-       
-      }
-      if (!this.agree) {
-        this.errors.push("you should agree with terms and services");
-        
-      }
-      if (!this.Province) {
-        this.errors.push("enter Province");
-       
-      }
-      e.preventDefault();
       const Newinformation = {
         first_name: this.first_name,
         last_name: this.last_name,
@@ -216,8 +271,7 @@ export default {
         agree: this.agree,
         Province: this.Province
       }
-      console.log(JSON.stringify(Newinformation))
-      
+       console.log(JSON.stringify(Newinformation))
     }
   }
 };

@@ -213,7 +213,7 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 import useVuelidate from "@vuelidate/core";
 import { required, email, sameAs,minLength } from "@vuelidate/validators";
-
+ import axios from "axios"    
 export default {
   setup() {
     return { v$: useVuelidate() };
@@ -271,7 +271,14 @@ export default {
         agree: this.agree,
         Province: this.Province
       }
-       console.log(JSON.stringify(Newinformation))
+         axios.post("/api/register", Newinformation)    
+                        .then((response) => {    
+                            console.log("Logged in")    
+                            router.push("/login")    
+                        })    
+                        .catch((errors) => {    
+                            console.log("Some error")    
+                        })    
     }
   }
 };
